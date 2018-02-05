@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>TRIRIGA PRACTICE</title>
+		<link rel="stylesheet" type="text/css" href="css/materialize.min.css">
+		<link rel="stylesheet" type="text/css" href="css/styles.css">
+		<script type="text/javascript" src="js/angular.min.js"></script>
+		<script type="text/javascript" src="js/controller.js"></script>
+		  <!-- Compiled and minified CSS -->
+  <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">-->
+
+  <!-- Compiled and minified JavaScript -->
+  <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>-->
+          
+	</head>
+	<body ng-app="MyApp" ng-controller="myCtrl as ctrl">
+		<h4>PRACTICE QUESTIONS</h4>
+		<div ng-show="ctrl.init">
+			<div>
+				<label for="start">Start from Question:</label>
+				<input id="start" type="number" ng-model="ctrl.first" placeholder="1">
+				
+			</div>
+			<div>
+				<label for="end">End at Question:</label>
+				<input id="end" type="number" ng-model="ctrl.last" placeholder="131">
+				
+			</div>
+			<div>
+				<input id="randomize" class="filled-in" type="checkbox" ng-model="ctrl.randomize">
+				<label for="randomize">Randomize Question Order?</label>
+			</div>
+			<br />
+			<div>
+				<button  class="btn" ng-click="ctrl.initialize()">Start</button>
+			</div>
+		</div>
+		<!-- <button class="btn btn-default" ng-click="ctrl.next()">NEXT</button> -->
+		<div ng-hide="ctrl.init">
+			<div ng-hide="ctrl.end">
+				
+				<h5> - SCORE {{ctrl.ansCount}}/{{ctrl.count}} - </h5>
+				<h5>{{ctrl.question.question}}</h5>
+				<div ng-if="ctrl.question.img">
+					<img ng-src="{{ctrl.question.img}}" alt="">
+				</div>
+				<div ng-if="ctrl.question.qtype === 'radio'">
+					<div ng-repeat="option in ctrl.question.options" class="options input-field">
+						<input 
+							type="{{ctrl.question.qtype}}" 
+							name="{{ctrl.question.index}}" 
+							id="{{$index}}"
+							class="with-gap"/>
+						<label for="{{$index}}" ng-click="ctrl.radioSelect = $index">{{option}}</label>
+					</div>
+				</div>
+				<div ng-if="ctrl.question.qtype === 'checkbox'">
+					<div ng-repeat="option in ctrl.question.options" class="options input-field">
+						<input type="{{ctrl.question.qtype}}" 
+							name="{{ctrl.question.index}}" 
+							id="{{$index}}" 
+							class="filled-in" 
+							ng-click="ctrl.toggle($index, ctrl.selected)" 
+							ng-checked="ctrl.exists($index, ctrl.selected)"/>
+						<label for="{{$index}}">{{option}}</label>
+					</div>
+				</div>
+				<br />
+				<hr>
+				<br />
+				<button class="btn btn-default" ng-click="ctrl.click()">{{ctrl.buttonName}}</button>
+				<p ng-show="ctrl.correct" class="options correctAns">CORRECT</p>
+				<p ng-show="ctrl.incorrect" class="options incorrectAns">INCORRECT</p>
+				<div ng-show="ctrl.showAns" >
+					<p ng-style="{'color':ctrl.color}"  class="options" ng-repeat="answer in ctrl.question.ansIndex" >
+						{{ctrl.question.options[answer]}}
+					</p>
+				</div>
+			</div>
+			<div class="finished" ng-show="ctrl.end">
+				<h3>FINISHED</h3>
+				<h4>FINAL SCORE: {{ctrl.ansCount}}/{{ctrl.count}}</h4>
+				<div ng-show="ctrl.wrongList.length > 0">
+					<h5>Wrong Answers:</h5>
+					<p ng-repeat="index in ctrl.wrongList" class="wrongList">
+						#{{ctrl.questionsOriginal[index].index+1}}: {{ctrl.questionsOriginal[index].question}}
+					</p>
+				</div>
+				<button class="btn btn-default" ng-click="ctrl.reload()">AGAIN?</button>
+			</div>
+		</div>
+	</body>
+</html>

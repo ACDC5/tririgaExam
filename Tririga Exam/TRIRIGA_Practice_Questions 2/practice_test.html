@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>TRIRIGA PRACTICE</title>
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="css/styles.css">
+		<script type="text/javascript" src="js/angular.min.js"></script>
+		<script type="text/javascript" src="js/controller.js"></script>
+	</head>
+	<body ng-app="MyApp" ng-controller="myCtrl as ctrl">
+		<h1>PRACTICE QUESTIONS</h1>
+		<h2> - SCORE {{ctrl.ansCount}}/{{ctrl.count}} - </h2>
+		<!-- <button class="btn btn-default" ng-click="ctrl.next()">NEXT</button> -->
+		<h3>{{ctrl.question[0]}}</h3>
+		<p class="options">{{ctrl.question[1]}}</p>
+		<p class="options">{{ctrl.question[2]}}</p>
+		<p class="options">{{ctrl.question[3]}}</p>
+		<p class="options">{{ctrl.question[4]}}</p>
+		<p class="options" ng-show="ctrl.question.length > 7">{{ctrl.question[5]}}</p>
+		<p class="options" ng-show="ctrl.question.length > 8">{{ctrl.question[6]}}</p>
+		<input class="input" ng-model="ctrl.ans" ng-keydown="ctrl.press($event)">
+		<button class="btn btn-default" ng-click="ctrl.click()">{{ctrl.buttonName}}</button>
+		<p ng-show="ctrl.correct" class="options correctAns">CORRECT</p>
+		<p ng-show="ctrl.incorrect" class="options incorrectAns">INCORRECT</p>
+		<p ng-show="ctrl.showAns" ng-style="{'color':ctrl.color}"  class="options" >{{ctrl.question[ctrl.question.length-1]}}</p>
+		<div class="finished" ng-show="ctrl.end">
+			<h2>FINISHED</h2>
+			<h3>FINAL SCORE: {{ctrl.ansCount}}/{{ctrl.count}}</h3>
+			<button class="btn btn-default" ng-click="ctrl.reload()">AGAIN?</button>
+		</div>
+	</body>
+</html>

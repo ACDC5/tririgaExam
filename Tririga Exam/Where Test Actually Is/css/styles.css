@@ -1,0 +1,36 @@
+body{
+	padding-left:25px;
+}
+
+.btn{
+	padding: 2px 12px;
+}
+
+.options{
+	font-size:18px;
+}
+
+.input{
+	margin-bottom:10px;
+}
+
+.correctAns{
+	color:green;
+	font-weight:bold;
+}
+
+.incorrectAns{
+	color:red;
+	font-weight:bold;
+}
+
+.finished{
+	position: absolute;
+	left:0;
+	top:0;
+	height:100%;
+	width:100%;
+	background-color:gray;
+	color:white;
+	text-align: center;
+}
